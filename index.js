@@ -377,10 +377,6 @@
             Provider: Provider,
             inject: inject,
             propTypes: propTypes,
-            reactiveComponent: function() {
-                console.warn("[mobx-inferno] `reactiveComponent` has been renamed to `observer` and will be removed in 1.1.");
-                return observer.apply(null, arguments);
-            },
             renderReporter: renderReporter,
             componentByNodeRegistery: componentByNodeRegistery,
             trackComponents: trackComponents
@@ -395,6 +391,6 @@
     } else if (typeof define === 'function' && define.amd) {
         define('mobx-inferno', ['mobx', 'inferno', 'inferno-dom', 'inferno-component', 'inferno-create-class'], mrFactory);
     } else {
-        this.mobxReact = mrFactory(this['mobx'], this['Inferno'], this['InfernoDOM'], this['InfernoComponent'], this['createClass']);
+        this.mobxInferno = mrFactory(this['mobx'], this['Inferno'], this['InfernoDOM'], this['InfernoComponent'], this['createClass']);
     }
 })();
