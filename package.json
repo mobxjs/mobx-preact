@@ -1,6 +1,6 @@
 {
   "name": "mobx-inferno",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Inferno bindings for MobX",
   "main": "index.js",
   "scripts": {
