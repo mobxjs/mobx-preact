@@ -1,0 +1,38 @@
+{
+  "name": "mobx-inferno",
+  "version": "0.1.0",
+  "description": "Inferno bindings for MobX",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nightwolfz/mobx-inferno.git"
+  },
+  "keywords": [
+    "mobx",
+    "inferno",
+    "mobx-inferno",
+    "mobx-connect",
+    "react",
+    "bindings"
+  ],
+  "author": "Ryan Megidov <ryan@megidov.com>",
+  "homepage": "https://github.com/nightwolfz/mobx-inferno#readme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nightwolfz/mobx-inferno/issues"
+  },
+  "peerDependencies": {
+    "mobx": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mobx": "*",
+    "inferno": "*",
+    "inferno-dom": "*",
+    "inferno-component": "*",
+    "inferno-create-class": "*"
+  }
+}
