@@ -1,6 +1,6 @@
 {
   "name": "mobx-inferno",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Inferno bindings for MobX",
   "main": "index.js",
   "scripts": {
@@ -24,15 +24,16 @@
   "bugs": {
     "url": "https://github.com/nightwolfz/mobx-inferno/issues"
   },
-  "peerDependencies": {
-    "mobx": "*"
+  "dependencies": {
+    "mobx": "latest"
   },
-  "dependencies": {},
+  "peerDependencies": {
+    "mobx": "latest"
+  },
   "devDependencies": {
-    "mobx": "*",
-    "inferno": "*",
-    "inferno-dom": "*",
-    "inferno-component": "*",
-    "inferno-create-class": "*"
+    "inferno": "latest",
+    "inferno-dom": "latest",
+    "inferno-component": "latest",
+    "inferno-create-class": "latest"
   }
 }
