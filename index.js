@@ -1,5 +1,7 @@
 (function() {
     function mrFactory(mobx, Inferno, InfernoDOM, InfernoComponent, createClass) {
+        const hoistStatics = require('hoist-non-react-statics');
+
         if (!mobx)
             throw new Error("mobx-inferno requires the MobX package")
         if (!Inferno)
@@ -45,7 +47,19 @@
 
         function EventEmitter() {
             this.listeners = [];
-        };
+        }
+
+        const ARR = [];
+        function toArray(children) {
+            return Array.isArray && Array.isArray(children) ? children : ARR.concat(children);
+        }
+
+        function ChildrenOnly(children) {
+            children = toArray(children);
+            if (children.length!==1) throw new Error('ChildrenOnly() expects only one child.');
+            return children[0];
+        }
+
         EventEmitter.prototype.on = function (cb) {
             this.listeners.push(cb);
             var self = this;
@@ -257,20 +271,23 @@
             displayName: "Provider",
 
             render: function() {
-                return Inferno.Children.only(this.props.children);
+                return ChildrenOnly(this.props.children);
             },
 
             getChildContext: function () {
                 var stores = {};
                 // inherit stores
                 var baseStores = this.context.mobxStores;
+
                 if (baseStores) for (var key in baseStores) {
                     stores[key] = baseStores[key];
                 }
                 // add own stores
-                for (var key in this.props)
-                    if (!specialReactKeys[key])
+                for (var key in this.props) {
+                    if (!specialReactKeys[key]) {
                         stores[key] = this.props[key];
+                    }
+                }
                 return {
                     mobxStores: stores
                 };
@@ -278,11 +295,15 @@
 
             componentWillReceiveProps: function(nextProps) {
                 // Maybe this warning is to aggressive?
-                if (Object.keys(nextProps).length !== Object.keys(this.props).length)
+                if (Object.keys(nextProps).length !== Object.keys(this.props).length) {
                     console.warn("MobX Provider: The set of provided stores has changed. Please avoid changing stores as the change might not propagate to all children");
-                for (var key in nextProps)
-                    if (!specialReactKeys[key] && this.props[key] !== nextProps[key])
+
+                }
+                for (var key in nextProps) {
+                    if (!specialReactKeys[key] && this.props[key] !== nextProps[key]) {
                         console.warn("MobX Provider: Provided store '" + key + "' has changed. Please avoid replacing stores as the change might not propagate to all children");
+                    }
+                }
             }
         });
 
@@ -298,15 +319,19 @@
                 displayName: "MobXStoreInjector",
                 render: function() {
                     var newProps = {};
-                    for (var key in this.props)
+                    for (var key in this.props) {
                         newProps[key] = this.props[key];
+                    }
                     newProps = grabStoresFn(this.context.mobxStores || {}, newProps, this.context);
-                    return Inferno.universal.createElement(component, newProps);
+                    return Inferno.createVNode()
+                                  .setTag(component)
+                                  .setAttrs(newProps)
                 }
                 // TODO: should have shouldComponentUpdate?
             });
             Injector.contextTypes = { mobxStores: PropTypesAny };
             Injector.wrappedComponent = component;
+            hoistStatics(Injector, component);
             return Injector;
         }
 
