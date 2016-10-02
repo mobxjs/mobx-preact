@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": false,
+		"outDir": "./lib",
+		"lib": [
+			"es6",
+			"es7",
+			"dom"
+		],
+		"types": [
+			"node",
+			"preact",
+			"core-js"
+		],
+		"jsx": "preserve",
+		"noUnusedLocals": true,
+		"strictNullChecks": false,
+		"removeComments": false
+	}
+}

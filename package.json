@@ -1,40 +1,36 @@
 {
-  "name": "mobx-inferno",
-  "version": "0.2.0",
-  "description": "Inferno bindings for MobX",
-  "main": "index.js",
+  "name": "mobx-preact",
+  "version": "0.0.3",
+  "description": "Preact bindings for MobX",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nightwolfz/mobx-inferno.git"
+    "url": "git+https://github.com/nightwolfz/mobx-preact.git"
   },
-  "keywords": [
-    "mobx",
-    "inferno",
-    "mobx-inferno",
-    "mobx-connect",
-    "react",
-    "bindings"
-  ],
+  "keywords": [],
   "author": "Ryan Megidov <ryan@megidov.com>",
-  "homepage": "https://github.com/nightwolfz/mobx-inferno#readme",
+  "homepage": "https://github.com/nightwolfz/mobx-preact#readme",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nightwolfz/mobx-inferno/issues"
+    "url": "https://github.com/nightwolfz/mobx-preact/issues"
   },
   "dependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/node": "^6.0.41",
     "hoist-non-react-statics": "^1.2.0",
-    "mobx": "2.x"
-  },
-  "peerDependencies": {
-    "mobx": "2.x"
+    "invariant": "^2.2.1",
+    "preact-classless-component": "^1.0.4"
   },
   "devDependencies": {
-    "inferno": "latest",
-    "inferno-dom": "latest",
-    "inferno-component": "latest",
-    "inferno-create-class": "latest"
+    "babel-core": "^6.17.0",
+		"babel-plugin-transform-react-jsx": "^6.8.0",
+		"babel-preset-es2015-minimal": "^2.0.0",
+		"babel-preset-stage-0": "^6.5.0",
+    "mobx": "^2.5.1",
+    "preact": "^6.1.0",
+    "typescript": "^2.0.3"
   }
 }
