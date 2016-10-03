@@ -13,8 +13,7 @@
 		],
 		"types": [
 			"node",
-			"preact",
-			"core-js"
+			"preact"
 		],
 		"jsx": "preserve",
 		"noUnusedLocals": true,

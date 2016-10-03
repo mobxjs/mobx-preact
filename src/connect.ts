@@ -1,4 +1,4 @@
-import invariant from 'invariant';
+import invariant = require('invariant');
 import { Component } from 'preact';
 import createClass from 'preact-classless-component';
 import reactiveMixin from './reactiveMixin';

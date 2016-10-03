@@ -1,4 +1,4 @@
-import hoistStatics from 'hoist-non-react-statics';
+import hoistStatics = require('hoist-non-react-statics');
 import { h } from 'preact';
 import createComponent from 'preact-classless-component';
 

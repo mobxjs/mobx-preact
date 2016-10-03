@@ -25,10 +25,6 @@
     "preact-classless-component": "^1.0.4"
   },
   "devDependencies": {
-    "babel-core": "^6.17.0",
-		"babel-plugin-transform-react-jsx": "^6.8.0",
-		"babel-preset-es2015-minimal": "^2.0.0",
-		"babel-preset-stage-0": "^6.5.0",
     "mobx": "^2.5.1",
     "preact": "^6.1.0",
     "typescript": "^2.0.3"
