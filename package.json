@@ -1,6 +1,6 @@
 {
   "name": "mobx-preact",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Preact bindings for MobX",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/nightwolfz/mobx-preact.git"
   },
-  "keywords": [],
+  "keywords": [
+    "preact",
+    "mobx-preact",
+    "mobx",
+    "connect",
+    "observer",
+    "bindings",
+    "reactive"
+  ],
   "author": "Ryan Megidov <ryan@megidov.com>",
   "homepage": "https://github.com/nightwolfz/mobx-preact#readme",
   "license": "MIT",
@@ -18,13 +26,13 @@
     "url": "https://github.com/nightwolfz/mobx-preact/issues"
   },
   "dependencies": {
-    "@types/core-js": "^0.9.34",
-    "@types/node": "^6.0.41",
     "hoist-non-react-statics": "^1.2.0",
     "invariant": "^2.2.1",
     "preact-classless-component": "^1.0.4"
   },
   "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/node": "^6.0.41",
     "mobx": "^2.5.1",
     "preact": "^6.1.0",
     "typescript": "^2.0.3"

@@ -50,10 +50,7 @@ export default {
 						this.componentWillReact(); // TODO: wrap in action?
 					}
 					if (this.__$mobxIsUnmounted !== true) {
-						// If we are unmounted at this point, componentWillReact() had a side effect causing the component to unmounted
-						// TODO: remove this check? Then Inferno will properly warn about the fact that this should not happen? See #73
-						// However, people also claim this migth happen during unit tests..
-						Component.prototype.forceUpdate.call(this);
+                        Component.prototype.forceUpdate.call(this);
 					}
 				}
 			});

@@ -30,8 +30,7 @@ function connect (arg1: string | any, arg2 = null): any {
 	const componentClass = arg1;
 
 	// Stateless function component:
-	// If it is function but doesn't seem to be a Inferno class constructor,
-	// wrap it to a Inferno class automatically
+	// If it is function but doesn't seem to be a class constructor, wrap it automatically
 	if (typeof componentClass === 'function'
 		&& (!componentClass.prototype || !componentClass.prototype.render)
 		&& !componentClass.isReactClass
@@ -52,6 +51,7 @@ function connect (arg1: string | any, arg2 = null): any {
 
 	const target = componentClass.prototype || componentClass;
 
+    console.debug('Lifecycle triggered')
 	lifecycleMethods.forEach(funcName => patch(target, funcName));
 
 	if (!target.shouldComponentUpdate) {
@@ -73,7 +73,9 @@ function patch (target, funcName) {
 	} else {
 		target[funcName] = function() {
 			base.apply(this, arguments);
-			mixinFunc.apply(this, arguments);
+            if (mixinFunc) {
+                mixinFunc.apply(this, arguments);
+            }
 		};
 	}
 }
