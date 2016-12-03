@@ -1,108 +1,70 @@
 # mobx-preact
 
+[![MIT](https://img.shields.io/npm/l/preact.svg?style=flat-square)](https://github.com/developit/preact/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/mobx-preact.svg)](http://npm.im/mobx-preact)
+
+<a href="https://preactjs.com">
+<img alt="Preact" title="Preact" src="https://cdn.rawgit.com/developit/b4416d5c92b743dbaec1e68bc4c27cda/raw/3235dc508f7eb834ebf48418aea212a05df13db1/preact-logo-trans.svg" width="250">
+</a>
+
 This is a fork of [mobx-react](https://github.com/mobxjs/mobx-react) for [Preact](https://preactjs.com/)
 
 This package provides the bindings for [MobX](https://mobxjs.github.io/mobx).
 
-Exports the `connect`  (or `observer`) decorator and some development utilities.
+Exports the `connect`  (or alias `observer`) decorator and some development utilities.
 
 ## Installation
 
-    npm install mobx-preact --save
+```
+npm install mobx-preact --save
+```
 
-## Dependencies
+Also install [mobx](https://github.com/mobxjs/mobx) dependency _(required)_ if you don't already have it
 
-    npm install mobx --save
+```
+npm install --save mobx
+```
 
-## API documentation
+## Example
 
-### connect(stores)(componentClass)
-
-Function (and decorator) that converts a component into a reactive component.
-
-`stores` is an array of strings/names of stores you passed to `Provider`.
-These will be passed automatically to all components connected.
-
-The more components you connect, the better Mobx can optimize rendering.
-So connect as many components as you want!
-
-See the [mobx](https://mobxjs.github.io/mobx/refguide/observer-component.html) documentation for more details.
-
+You can inject props using the following syntax
 
 ```javascript
+// MyComponent.js
 import { h, Component } from 'preact';
-import { Provider, connect } from 'mobx-preact';
-import { observable } from 'mobx';
+import { connect } from 'mobx-preact';
 
-const timeStore = observable({
-    text: 'Current time here...'
-})
-
-class App extends Component {
-    render() {
-        return (
-        <Provider time={timeStore}>
-            <TestComponent/>
-        </Provider>
-        );
+@connect(['englishStore', 'frenchStore'])
+class MyComponent extends Component {
+    render({ englishStore, frenchStore }) {
+        return <div>
+            <p>{ englishStore.title }</p>
+            <p>{ frenchStore.title }</p>
+        </div>
     }
 }
 
-@connect(['store'])
-class TestComponent extends Component {
-    componentDidMount() {
-        const {time} = this.props;
-        
-        setInterval(() => {
-            time.text = Date.now();
-        }, 1000);
-    }
-
-    render({ time }) {
-        return <p>Unix timestamp: {time.text}</p>;
-    }
-}
-
-export default App;
+export default MyComponent
 ```
 
-```javascript
-// If we don't need the stores but still want the component
-// reactive, then we can omit the stores array
-
-@connect
-class TestComponent extends Component {
-    //....
-}
-```
-
-Alternatively if you prefer not to use decorators:
+Just make sure that you provided your stores using the `Provider`. Ex:
 
 ```javascript
-class TestComponent extends Component {
-    //...
-}
+// index.js
+import { h, render } from 'preact';
+import { Provider } from 'mobx-preact'
+import { observable } from 'mobx'
+import MyComponent from './MyComponent'
 
-export default connect(['time'])(App);
-```
-
-You cannot use decorators on stateless components, so wrap them like this:
-
-```javascript
-// With store injection
-const TodoView = connect(['store'])(props => {
-    return <p>Current time: {props.time.text}</p>
+const englishStore = observable({
+    title: 'Hello World'
 })
 
-// Without injection but still reactive
-const TodoView = connect(props => {
-    return <p>Some prop we passed on: {props.something}</p>
+const frenchStore = observable({
+    title: 'Bonjour tout le monde'
 })
+
+render(<Provider englishStore={ englishStore } frenchStore={ frenchStore }>
+    <MyComponent/>
+</Provider>, document.body)
 ```
-
-
-
-It is possible to set a custom `shouldComponentUpdate`, but in general this should be avoided as MobX will by default provide a highly optimized `shouldComponentUpdate` implementation based on `PureRenderMixin`.
-
-
-For Mobx documentation, see the [mobx](https://mobxjs.github.io/mobx) project.
