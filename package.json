@@ -1,6 +1,6 @@
 {
   "name": "mobx-preact",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Preact bindings for MobX",
   "main": "lib/index.js",
   "scripts": {
@@ -27,14 +27,14 @@
   },
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0",
-    "invariant": "^2.2.1",
-    "preact-classless-component": "^1.0.4"
+    "invariant": "^2.2.2",
+    "preact-classless-component": "^1.0.5"
   },
   "devDependencies": {
-    "@types/core-js": "^0.9.34",
+    "@types/core-js": "^0.9.35",
     "@types/node": "^6.0.41",
-    "mobx": "^2.5.1",
-    "preact": "^6.1.0",
-    "typescript": "^2.0.3"
+    "mobx": "^2.6.4",
+    "preact": "^7.1.0",
+    "typescript": "^2.0.10"
   }
 }
