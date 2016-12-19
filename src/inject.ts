@@ -2,28 +2,28 @@ import hoistStatics = require('hoist-non-react-statics');
 import { h } from 'preact';
 import createComponent from 'preact-classless-component';
 
-interface IProps {
+interface IStoreProps {
 	ref: any;
 }
 
 /**
  * Store Injection
  */
-function createStoreInjector (grabStoresFn, component) {
+function createStoreInjector(grabStoresFn: Function, component) {
 	const Injector: any = createComponent({
-		displayName: 'MobXStoreInjector',
+		displayName: component.name,
 		render() {
-			const newProps = <IProps> {};
+			const newProps = <IStoreProps> {};
 			for (let key in this.props) {
 				if (this.props.hasOwnProperty(key)) {
 					newProps[key] = this.props[key];
 				}
 			}
 			const additionalProps = grabStoresFn(this.context.mobxStores || {}, newProps, this.context) || {};
-			for ( let key in additionalProps ) {
-				newProps[ key ] = additionalProps[ key ];
+			for (let key in additionalProps) {
+				newProps[key] = additionalProps[key];
 			}
-			newProps.ref = instance => {
+			newProps.ref = (instance) => {
 				this.wrappedInstance = instance;
 			};
 
@@ -31,31 +31,36 @@ function createStoreInjector (grabStoresFn, component) {
 		}
 	});
 
-	Injector.contextTypes = { mobxStores() {} };
+	Injector.contextTypes = {
+		mobxStores() {
+		}
+	};
 	Injector.wrappedComponent = component;
 	hoistStatics(Injector, component);
 
 	return Injector;
 }
 
-const grabStoresByName = (storeNames) => (baseStores, nextProps) => {
-	storeNames.forEach(function(storeName) {
+const grabStoresByName = function(storeNames: string[]): Function {
+	return function(baseStores: Object, nextProps: Object): Object {
+		storeNames.forEach(function(storeName) {
 
-		// Prefer props over stores
-		if (storeName in nextProps) {
-			return;
-		}
+			// Prefer props over stores
+			if (storeName in nextProps) {
+				return;
+			}
 
-		if (!(storeName in baseStores)) {
-			throw new Error(
-				`MobX observer: Store "${storeName}" is not available! ` +
-				`Make sure it is provided by some Provider`
-			);
-		}
+			if (!(storeName in baseStores)) {
+				throw new Error(
+					`MobX observer: Store "${storeName}" is not available! ` +
+					`Make sure it is provided by some Provider`
+				);
+			}
 
-		nextProps[storeName] = baseStores[storeName];
-	});
-	return nextProps;
+			nextProps[storeName] = baseStores[storeName];
+		});
+		return nextProps;
+	};
 };
 
 /**
@@ -64,7 +69,7 @@ const grabStoresByName = (storeNames) => (baseStores, nextProps) => {
  * or a function that manually maps the available stores from the context to props:
  * storesToProps(mobxStores, props, context) => newProps
  */
-function inject (grabStoresFn): any {
+export default function inject(grabStoresFn?: Function | string): any {
 
 	if (typeof grabStoresFn !== 'function') {
 
@@ -76,7 +81,5 @@ function inject (grabStoresFn): any {
 		grabStoresFn = grabStoresByName(storesNames);
 	}
 
-	return componentClass => createStoreInjector(grabStoresFn, componentClass);
+	return (componentClass) => createStoreInjector(grabStoresFn as Function, componentClass);
 }
-
-export default inject;

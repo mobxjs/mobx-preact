@@ -8,17 +8,28 @@ const specialKeys = {
 };
 
 function childOnly(children) {
-    if (children.length > 1) {
-        throw new Error('Provider can only have one direct child');
-    }
-    return children.length ? children[0] : children;
+	if (children.length > 1) {
+		throw new Error('Provider can only have one direct child');
+	}
+	return children.length ? children[0] : children;
 }
 
 export default class Provider extends Component<any, any> {
-	contextTypes: any = { mobxStores() {} };
-	childContextTypes: any = { mobxStores() {} };
-    public componentWillReceiveProps;
-    public context;
+	contextTypes: any = {
+		mobxStores() {
+		}
+	};
+	childContextTypes: any = {
+		mobxStores() {
+		}
+	};
+	private store: any;
+
+	constructor(props?: any, context?: any) {
+		super(props, context);
+		this.store = props.store;
+	}
+
 	public render() {
 		return childOnly(this.props.children);
 	}
@@ -62,3 +73,4 @@ if (process.env.NODE_ENV !== 'production') {
 
 	};
 }
+

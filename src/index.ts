@@ -1,11 +1,11 @@
 import Provider from './Provider';
-import { renderReporter, componentByNodeRegistery } from './reactiveMixin';
+import { renderReporter, componentByNodeRegistery } from './makeReactive';
 import connect from './connect';
 
-export {
+export default {
 	Provider,
 	connect,
-    connect as observer,
+	observer: connect,
 	renderReporter,
 	componentByNodeRegistery
 };
