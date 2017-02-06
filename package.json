@@ -1,11 +1,11 @@
 {
   "name": "mobx-preact",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Preact bindings for MobX",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "mocha"
+    "test": "./node_modules/.bin/_mocha --opts mocha.opts"
   },
   "repository": {
     "type": "git",
@@ -29,17 +29,18 @@
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0",
     "invariant": "^2.2.2",
-    "preact-classless-component": "^1.0.5"
+    "preact-classless-component": "^1.0.6"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/core-js": "^0.9.35",
-    "@types/mocha": "^2.2.33",
-    "@types/node": "^6.0.41",
+    "@types/mocha": "^2.2.39",
+    "@types/node": "^7.0.5",
     "chai": "^3.5.0",
-    "mobx": "^2.6.4",
+    "mobx": "^3.1.0",
+    "mocha": "^3.2.0",
     "preact": "^7.1.0",
-    "tslint": "^4.1.1",
-    "typescript": "^2.0.10"
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.5"
   }
 }

@@ -37,7 +37,7 @@ export function trackComponents() {
 
 interface IReactiveRender {
 	$mobx?: Reaction;
-	(nextProps, nextContext): void;
+	(nextProps, nextState, nextContext): void;
 }
 
 export default function makeReactive(componentClass) {
@@ -58,7 +58,7 @@ export default function makeReactive(componentClass) {
 		const initialName = this.displayName || this.name || (this.constructor && (this.constructor.displayName || this.constructor.name)) || '<component>';
 		const baseRender = this.render.bind(this);
 
-		const initialRender = (nextProps, nextContext) => {
+		const initialRender = (nextProps, nextState, nextContext) => {
 			reaction = new Reaction(`${initialName}.render()`, () => {
 				if (!isRenderingPending) {
 					isRenderingPending = true;
@@ -77,17 +77,17 @@ export default function makeReactive(componentClass) {
 			});
 			reactiveRender.$mobx = reaction;
 			this.render = reactiveRender;
-			return reactiveRender(nextProps, nextContext);
+			return reactiveRender(nextProps, nextState, nextContext);
 		};
 
-		const reactiveRender: IReactiveRender = (nextProps, nextContext) => {
+		const reactiveRender: IReactiveRender = (nextProps, nextState, nextContext) => {
 			isRenderingPending = false;
 			let rendering = undefined;
 			reaction.track(() => {
 				if (isDevtoolsEnabled) {
 					this.__$mobRenderStart = Date.now();
 				}
-				rendering = extras.allowStateChanges(false, baseRender.bind(this, nextProps, nextContext));
+				rendering = extras.allowStateChanges(false, baseRender.bind(this, nextProps, nextState, nextContext));
 				if (isDevtoolsEnabled) {
 					this.__$mobRenderEnd = Date.now();
 				}

@@ -1,0 +1,4 @@
+--recursive
+--colors
+
+test/**/*.js
