@@ -8,7 +8,7 @@ import { throwError } from './utils/shared';
  */
 let isDevtoolsEnabled = false;
 
-export const componentByNodeRegistery: WeakMap<any, any> = new WeakMap();
+export const componentByNodeRegistery = new WeakMap();
 export const renderReporter = new EventEmitter();
 
 function reportRendering(component) {
@@ -35,11 +35,6 @@ export function trackComponents() {
 	}
 }
 
-interface IReactiveRender {
-	$mobx?: Reaction;
-	(nextProps, nextState, nextContext): void;
-}
-
 export default function makeReactive(componentClass) {
 
 	const target = componentClass.prototype || componentClass;
@@ -52,7 +47,7 @@ export default function makeReactive(componentClass) {
 		// Call original
 		baseWillMount && baseWillMount.call(this);
 
-		let reaction: Reaction;
+		let reaction;
 		let isRenderingPending = false;
 
 		const initialName = this.displayName || this.name || (this.constructor && (this.constructor.displayName || this.constructor.name)) || '<component>';
@@ -80,7 +75,7 @@ export default function makeReactive(componentClass) {
 			return reactiveRender(nextProps, nextState, nextContext);
 		};
 
-		const reactiveRender: IReactiveRender = (nextProps, nextState, nextContext) => {
+		const reactiveRender = (nextProps, nextState, nextContext) => {
 			isRenderingPending = false;
 			let rendering = undefined;
 			reaction.track(() => {

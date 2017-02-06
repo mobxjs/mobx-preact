@@ -1,4 +1,3 @@
-import invariant = require('invariant');
 import { Component } from 'preact';
 import createClass from 'preact-classless-component';
 import inject from './inject';
@@ -8,7 +7,7 @@ import { throwError } from './utils/shared';
 /**
  * Wraps a component and provides stores as props
  */
-function connect (arg1: any, arg2 = null): any {
+function connect (arg1, arg2 = null) {
 	if (typeof arg1 === 'string') {
 		throwError('Store names should be provided as array');
 	}
@@ -39,7 +38,7 @@ function connect (arg1: any, arg2 = null): any {
 			contextTypes: componentClass.contextTypes,
 			getDefaultProps: () => componentClass.defaultProps,
 			render() {
-				return componentClass.call(this, this.props, this.state, this.context);
+				return componentClass.call(this, this.props, this.context, this.context);
 			}
 		});
 

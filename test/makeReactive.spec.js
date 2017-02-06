@@ -1,11 +1,12 @@
+import 'mocha';
 import { observable, extendObservable, toJS } from 'mobx';
 import { expect } from 'chai';
-import { render, Component } from 'preact';
+import { h, render, Component } from 'preact';
 import makeReactive from '../src/makeReactive';
 
 let todoListRenderings = 0;
 let todoListWillReactCount = 0;
-let store = {
+const store = {
 	todos: observable(['one', 'two']),
 	extra: observable({ test: 'observable!' })
 };
@@ -14,7 +15,7 @@ describe('MobX Observer', () => {
 	let container;
 
 	beforeEach(() => {
-		container = document.createElement('div') as HTMLElement;
+		container = document.createElement('div');
 		container.style.display = 'none';
 		document.body.appendChild(container);
 	});
@@ -28,14 +29,14 @@ describe('MobX Observer', () => {
 		return <li>{ todo }</li>;
 	});
 
-	const TodoList = makeReactive(class extends Component<any, any> {
+	const TodoList = makeReactive(class extends Component {
 		componentWillReact() {
 			todoListWillReactCount++;
 		}
 
 		render() {
 			todoListRenderings++;
-			let todos = store.todos;
+			const todos = store.todos;
 			return <div>{todos.map(todo => <TodoItem todo={todo}/>)}</div>;
 		}
 	});
@@ -56,7 +57,7 @@ describe('MobX Observer', () => {
 	});
 
 	it('should render a todo list with non observale item', () => {
-		const FlatList = makeReactive(class extends Component<any, any> {
+		const FlatList = makeReactive(class extends Component {
 			render({ extra }) {
 				return <div>{store.todos.map(title => <li>{ title }{ extra.test }</li>)}</div>;
 			}

@@ -1,19 +1,15 @@
-import hoistStatics = require('hoist-non-react-statics');
+import hoistStatics from 'hoist-non-react-statics';
 import { h } from 'preact';
 import createComponent from 'preact-classless-component';
-
-interface IStoreProps {
-	ref: any;
-}
 
 /**
  * Store Injection
  */
-function createStoreInjector(grabStoresFn: Function, component) {
-	const Injector: any = createComponent({
+function createStoreInjector(grabStoresFn, component) {
+	const Injector = createComponent({
 		displayName: component.name,
 		render() {
-			const newProps = <IStoreProps> {};
+			const newProps = {};
 			for (let key in this.props) {
 				if (this.props.hasOwnProperty(key)) {
 					newProps[key] = this.props[key];
@@ -41,8 +37,8 @@ function createStoreInjector(grabStoresFn: Function, component) {
 	return Injector;
 }
 
-const grabStoresByName = function(storeNames: string[]): Function {
-	return function(baseStores: Object, nextProps: Object): Object {
+const grabStoresByName = function(storeNames) {
+	return function(baseStores, nextProps) {
 		storeNames.forEach(function(storeName) {
 
 			// Prefer props over stores
@@ -69,11 +65,11 @@ const grabStoresByName = function(storeNames: string[]): Function {
  * or a function that manually maps the available stores from the context to props:
  * storesToProps(mobxStores, props, context) => newProps
  */
-export default function inject(grabStoresFn?: Function | string): any {
+export default function inject(grabStoresFn) {
 
 	if (typeof grabStoresFn !== 'function') {
 
-		let storesNames: any = [];
+		let storesNames = [];
 		for (let i = 0; i < arguments.length; i++) {
 			storesNames[i] = arguments[i];
 		}
@@ -81,5 +77,5 @@ export default function inject(grabStoresFn?: Function | string): any {
 		grabStoresFn = grabStoresByName(storesNames);
 	}
 
-	return (componentClass) => createStoreInjector(grabStoresFn as Function, componentClass);
+	return (componentClass) => createStoreInjector(grabStoresFn, componentClass);
 }

@@ -14,38 +14,24 @@ function childOnly(children) {
 	return children.length ? children[0] : children;
 }
 
-export default class Provider extends Component<any, any> {
-	contextTypes: any = {
-		mobxStores() {
-		}
-	};
-	childContextTypes: any = {
-		mobxStores() {
-		}
-	};
-	private store: any;
-
-	constructor(props?: any, context?: any) {
+class Provider extends Component {
+	constructor(props, context) {
 		super(props, context);
 		this.store = props.store;
 	}
 
-	public render() {
-		return childOnly(this.props.children);
-	}
-
 	getChildContext() {
-		let stores = {};
+		const stores = {};
 		// inherit stores
-		let baseStores = this.context.mobxStores;
+		const baseStores = this.context.mobxStores;
 
 		if (baseStores) {
-			for (let key in baseStores) {
+			for (const key in baseStores) {
 				stores[key] = baseStores[key];
 			}
 		}
 		// add own stores
-		for (let key in this.props) {
+		for (const key in this.props) {
 			if (!specialKeys[key]) {
 				stores[key] = this.props[key];
 			}
@@ -53,6 +39,10 @@ export default class Provider extends Component<any, any> {
 		return {
 			mobxStores: stores
 		};
+	}
+
+	render() {
+		return childOnly(this.props.children);
 	}
 }
 
@@ -64,7 +54,7 @@ if (process.env.NODE_ENV !== 'production') {
 			'MobX Provider: The set of provided stores has changed. ' +
 			'Please avoid changing stores as the change might not propagate to all children'
 		);
-		for (let key in nextProps) {
+		for (const key in nextProps) {
 			warning(specialKeys[key] || this.props[key] === nextProps[key],
 				`MobX Provider: Provided store '${key}' has changed. ` +
 				`Please avoid replacing stores as the change might not propagate to all children`
@@ -74,3 +64,12 @@ if (process.env.NODE_ENV !== 'production') {
 	};
 }
 
+Provider.contextTypes = {
+	mobxStores() {}
+};
+
+Provider.childContextTypes = {
+	mobxStores() {}
+};
+
+export default Provider

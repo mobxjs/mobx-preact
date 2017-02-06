@@ -1,6 +1,7 @@
+import 'mocha';
 import { observable } from 'mobx';
 import { expect } from 'chai';
-import { render, Component } from 'preact';
+import { h, render, Component } from 'preact';
 import Provider from '../src/Provider';
 import connect from '../src/connect';
 
@@ -8,7 +9,7 @@ describe('MobX Provider', () => {
 	let container;
 
 	beforeEach(() => {
-		container = document.createElement('div') as HTMLElement;
+		container = document.createElement('div');
 		container.style.display = 'none';
 		document.body.appendChild(container);
 	});
@@ -19,7 +20,7 @@ describe('MobX Provider', () => {
 	});
 
 	describe('updating state', () => {
-		let stores: any = observable({
+		const stores = observable({
 			store1: {
 				data: 'one'
 			},
@@ -28,7 +29,7 @@ describe('MobX Provider', () => {
 			}
 		});
 
-		const Statefull = connect(['store1'], class extends Component<any, any> {
+		const Statefull = connect(['store1'], class extends Component {
 			render({ store1 }) {
 				const update = () => store1.data = 'Statefull';
 
@@ -66,7 +67,7 @@ describe('MobX Provider', () => {
 		it('should update a statefull component', () => {
 			render(<Provider store1={stores.store1}><Statefull/></Provider>, container);
 
-			const link = container.querySelector('#update') as HTMLElement;
+			const link = container.querySelector('#update');
 			link.click();
 
 			expect(container.innerHTML).to.equal('<article><a id="update">update</a><span>Statefull</span></article>');
@@ -75,7 +76,7 @@ describe('MobX Provider', () => {
 		it('should update a stateless component', () => {
 			render(<Provider store1={stores.store1}><Stateless/></Provider>, container);
 
-			const link = container.querySelector('#update') as HTMLElement;
+			const link = container.querySelector('#update');
 			link.click();
 
 			expect(container.innerHTML).to.equal('<article><a id="update">update</a><span>Stateless</span></article>');
@@ -84,7 +85,7 @@ describe('MobX Provider', () => {
 		it('should update a stateless component with stores', () => {
 			render(<Provider store1={stores.store1}><StatelessWithStores/></Provider>, container);
 
-			const link = container.querySelector('#update') as HTMLElement;
+			const link = container.querySelector('#update');
 			link.click();
 
 			expect(container.innerHTML).to.equal('<article><a id="update">update</a><span>hello world</span></article>');
@@ -92,7 +93,7 @@ describe('MobX Provider', () => {
 	});
 
 	describe('providing/updating stores', () => {
-		let stores: any = observable({
+		const stores = observable({
 			store1: {
 				data: 'one'
 			},

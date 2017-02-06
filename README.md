@@ -7,9 +7,14 @@
 <img alt="Preact" title="Preact" src="https://cdn.rawgit.com/developit/b4416d5c92b743dbaec1e68bc4c27cda/raw/3235dc508f7eb834ebf48418aea212a05df13db1/preact-logo-trans.svg" width="250">
 </a>
 
+
 This is a fork of [mobx-react](https://github.com/mobxjs/mobx-react) for [Preact](https://preactjs.com/)
 
 This package provides the bindings for [MobX](https://mobxjs.github.io/mobx).
+
+**_It's not really maintained, if someone wants to take over, ping me on github!_**
+
+Consider using [mobx-observer](https://www.npmjs.com/package/mobx-observer) or another library instead.
 
 Exports the `connect`  (or alias `observer`) decorator and some development utilities.
 

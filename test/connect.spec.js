@@ -1,3 +1,4 @@
+import 'mocha';
 import { expect } from 'chai';
 import { h, render, Component } from 'preact';
 import Provider from '../src/Provider';
@@ -27,7 +28,7 @@ describe('MobX inject()', () => {
 	let container;
 
 	beforeEach(() => {
-		container = document.createElement('div') as HTMLElement;
+		container = document.createElement('div');
 		container.style.display = 'none';
 		document.body.appendChild(container);
 	});
@@ -37,7 +38,7 @@ describe('MobX inject()', () => {
 		render(null, container);
 	});
 
-	class TestComponent extends Component<any, any> {
+	class TestComponent extends Component {
 		render({ testStore }) {
 			return h('span', null, testStore);
 		}
@@ -91,14 +92,14 @@ describe('MobX inject()', () => {
 
 	it('should create class with injected stores', () => {
 
-		class TestClass extends Component<any, any> {
-			static defaultProps = {
-				world: 'world'
-			};
-
+		class TestClass extends Component {
 			render({ hello, world }) {
 				return h('span', null, hello + ' ' + world);
 			}
+		}
+
+		TestClass.defaultProps = {
+			world: 'world'
 		}
 
 		function App() {

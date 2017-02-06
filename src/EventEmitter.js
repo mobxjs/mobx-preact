@@ -1,8 +1,9 @@
-export default class EventEmitter {
+class EventEmitter {
+	constructor() {
+		this.listeners = [];
+	}
 
-	private listeners: Function[] = [];
-
-	public on(cb: Function) {
+	on(cb) {
 		this.listeners.push(cb);
 		return () => {
 			const index = this.listeners.indexOf(cb);
@@ -12,15 +13,17 @@ export default class EventEmitter {
 		};
 	}
 
-	public emit(data: any) {
+	emit(data) {
 		this.listeners.forEach((fn) => fn(data));
-	};
+	}
 
-	public getTotalListeners(): number {
+	getTotalListeners() {
 		return this.listeners.length;
 	}
 
-	public clearListeners(): void {
+	clearListeners() {
 		this.listeners = [];
 	}
 }
+
+export default EventEmitter

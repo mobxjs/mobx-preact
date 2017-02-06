@@ -1,15 +1,16 @@
+import 'mocha';
 import { expect } from 'chai';
 import EventEmitter from '../src/EventEmitter';
 
 const testData = {
 	testKey: 'testData',
 };
-const testListener = function(data: any) {
+const testListener = function(data) {
 	expect(data).to.equal(testData);
 };
 
 describe('mobx - EventEmitter', () => {
-	it('should have an empty listner array on construction', () => {
+	it('should have an empty listeners array on construction', () => {
 		const unit = new EventEmitter();
 		expect(unit.getTotalListeners()).to.equal(0);
 	});
