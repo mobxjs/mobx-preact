@@ -53,6 +53,10 @@ class TodoView extends Component {
 const TodoView = observer(({todo}) => <div>{todo.title}</div>)
 ```
 
+### connect(componentClass)
+
+Alias of `observer` for compatibility with `mobx-preact` v0.
+
 ### `Observer`
 
 `Observer` is a Preact component, which applies `observer` to an anonymous region in your component.

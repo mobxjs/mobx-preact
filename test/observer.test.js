@@ -4,7 +4,7 @@ import { h, render, Component } from 'preact';
 import { observable, action, computed, transaction, extras, extendObservable } from 'mobx';
 import { createClass } from 'preact-compat';
 import renderToString  from 'preact-render-to-string';
-import { observer, useStaticRendering, Observer, inject } from '../src';
+import { observer, useStaticRendering, Observer, inject, connect } from '../src';
 import { pause, disabledTest } from './test-util';
 
 const logger = console; // eslint-disable-line no-console
@@ -148,6 +148,22 @@ test('keep views alive', () => {
 
     // TODO: This fails
     // expect(getDNode(data, 'y').observers.length).toBe(0);
+});
+
+test('connect alias works', () => {
+    const data = observable({
+        x: 'hi',
+    });
+    const Comp = connect(
+        createClass({
+            render() {
+                return <p>{ data.x }</p>;
+            },
+        })
+    );
+    render(<Comp />, testRoot);
+    data.x = 'bye';
+    expect(document.querySelector('p').textContent).toBe('bye');
 });
 
 test('componentWillMount from mixin is run first', done => {
