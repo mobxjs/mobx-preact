@@ -3,7 +3,7 @@
 .gitignore
 .idea
 src
-tsconfig.json
-tslint.json
+test
 .DS_Store
-README.md
+.eslintrc.js
+*.tgz
