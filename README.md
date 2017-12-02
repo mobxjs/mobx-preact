@@ -13,7 +13,7 @@
 import {observer} from 'mobx-preact';
 ```
 
-This package provides the bindings for MobX and Preact. See the [official documentation](http://mobxjs.github.io/mobx/intro/overview.html) for how to get started. Code and documentation originated from [mobx-preact](https://github.com/mobxjs/mobx-preact). The feature set of `mobx-preact` is a slightly slimmed down adaptation of `mobx-react`. The features available are reflected by this document. The features omitted are:
+This package provides the bindings for MobX and Preact. See the [official documentation](http://mobxjs.github.io/mobx/intro/overview.html) for how to get started. Code and documentation originated from [mobx-react](https://github.com/mobxjs/mobx-react). The feature set of `mobx-preact` is a slightly slimmed down adaptation of `mobx-react`. The features available are reflected by this document. The features omitted are:
 
 * [Global error handler with onError](https://github.com/mobxjs/mobx-react#global-error-handler-with-onerror)
 * [Stuff to do with PropTypes](https://github.com/mobxjs/mobx-react#proptypes)
