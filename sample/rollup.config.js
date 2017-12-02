@@ -3,7 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 // I couldn't get Babel + decorators working with rollup, so babel is handled externally.
-// See `npm run build:sample` scipt
+// See `npm run build:sample` script
 
 export default {
     input: 'sample/dist/sample.es5.js',

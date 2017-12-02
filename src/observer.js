@@ -224,6 +224,12 @@ const reactiveMixin = {
  * Observer function / decorator
  */
 export function observer(componentClass) {
+    if(arguments.length > 1) {
+        logger.warn(
+            'Mobx observer: Using observer to inject stores is not supported. Use `@connect(["store1", "store2"]) ComponentClass instead or preferably, use `@inject("store1", "store2") @observer ComponentClass` or `inject("store1", "store2")(observer(componentClass))``'
+        );
+    }
+
     if (componentClass.isMobxInjector === true) {
         logger.warn(
             'Mobx observer: You are trying to use \'observer\' on a component that already has \'inject\'. Please apply \'observer\' before applying \'inject\''

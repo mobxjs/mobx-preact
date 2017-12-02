@@ -53,10 +53,6 @@ class TodoView extends Component {
 const TodoView = observer(({todo}) => <div>{todo.title}</div>)
 ```
 
-### connect(componentClass)
-
-Alias of `observer` for compatibility with `mobx-preact` v0.
-
 ### `Observer`
 
 `Observer` is a Preact component, which applies `observer` to an anonymous region in your component.
@@ -176,6 +172,34 @@ class MessageList extends Component {
   }
 }
 ```
+
+### connect
+
+In `mobx-react` (v4) you can inject and observe simultaneously with `observe`, but this is now deprecated for [these reasons](https://github.com/mobxjs/mobx-react/blob/master/CHANGELOG.md#using-observer-to-inject-stores-is-deprecated).
+
+In version 0.x of `mobx-preact` this could be achieved using `connect` and *is* still supported for backwards compatibility:
+
+```javascript
+// MyComponent.js
+import { h, Component } from 'preact';
+import { connect } from 'mobx-preact';
+
+@connect(['englishStore', 'frenchStore'])
+class MyComponent extends Component {
+    render({ englishStore, frenchStore }) {
+        return <div>
+            <p>{ englishStore.title }</p>
+            <p>{ frenchStore.title }</p>
+        </div>
+    }
+}
+
+export default MyComponent
+```
+
+I'm not currently sure if it's worth deprecating `connect` in `mobx-preact` for the same reasons.
+
+In `mobx-preact`, using `observe` to simultaneously inject and observe is not supported. You must use `connect` if you want to do this.
 
 Notes:
 * If a component asks for a store and receives a store via a property with the same name, the property takes precedence. Use this to your advantage when testing!
