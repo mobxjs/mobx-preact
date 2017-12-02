@@ -9,11 +9,11 @@ if (!extras) {
 }
 
 export {
-    observer as connect,
     observer,
     Observer,
     useStaticRendering,
 } from './observer';
 
+export { connect } from './connect';
 export { inject } from './inject';
 export { Provider } from './Provider';
