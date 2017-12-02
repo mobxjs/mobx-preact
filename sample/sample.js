@@ -13,19 +13,29 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <div>
+                <Inbetween>
                     <CounterComp />
                     <CounterConnect />
                     <CounterStateless />
                     <NotObserver />
                     <IncrementButton />
-                </div>
+                </Inbetween>
             </Provider>
         );
     }
 }
 
 let renderCount = 0;
+
+class Inbetween extends Component {
+    render({ children }) {
+        return (
+            <div style={{outline: '2px dashed HotPink'}}>
+                { children }
+            </div>
+        )
+    }
+}
 
 @inject('store')
 @observer
