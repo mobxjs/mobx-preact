@@ -2,7 +2,7 @@
 
 import { h, Component, render  } from 'preact';
 import { createClass } from 'preact-compat';
-import mobx, { action, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { observer, inject, Provider } from '../src';
 import { createTestRoot, pause, disabledTest } from './test-util';
 
@@ -20,6 +20,26 @@ describe('inject based context', () => {
                 createClass({
                     render() {
                         return <div>context:{this.props.foo}</div>;
+                    },
+                })
+            )
+        );
+        const B = () => <C />;
+        const A = () => (
+            <Provider foo="bar">
+                <B />
+            </Provider>
+        );
+        render(<A />, testRoot);
+        expect(testRoot.querySelector('div').textContent).toBe('context:bar');
+    });
+
+    test('props as render args', () => {
+        const C = inject('foo')(
+            observer(
+                createClass({
+                    render({ foo }) {
+                        return <div>context:{foo}</div>;
                     },
                 })
             )
@@ -150,7 +170,7 @@ describe('inject based context', () => {
         let msg;
         const baseWarn = console.warn;
         console.warn = m => (msg = m);
-        const a = mobx.observable(3);
+        const a = observable(3);
         const C = observer(
             ['foo'],
             createClass({
@@ -249,7 +269,7 @@ describe('inject based context', () => {
     });
 
     test('using a custom injector is reactive', () => {
-        const user = mobx.observable({ name: 'Noa' });
+        const user = observable({ name: 'Noa' });
         const mapper = stores => ({ name: stores.user.name });
         const DisplayName = props => <h1>{props.name}</h1>;
         const User = inject(mapper)(DisplayName);

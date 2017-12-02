@@ -144,9 +144,9 @@ This is useful if you have things that you don't want to pass through multiple l
 ```javascript
 @inject("color") @observer
 class Button extends Component {
-  render() {
+  render({ color }) {
     return (
-      <button style={{background: this.props.color}}>
+      <button style={{background: color}}>
         {this.props.children}
       </button>
     );
@@ -154,10 +154,10 @@ class Button extends Component {
 }
 
 class Message extends Component {
-  render() {
+  render({ text }) {
     return (
       <div>
-        {this.props.text} <Button>Delete</Button>
+        {text} <Button>Delete</Button>
       </div>
     );
   }
