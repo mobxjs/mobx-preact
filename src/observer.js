@@ -11,6 +11,32 @@ export function useStaticRendering(useStaticRendering) {
 }
 
 /**
+ Workaround
+
+ allowStateChanges from mobX must be patched so that props, state and args are passed to the render() function
+ */
+
+function allowStateChangesStart(allowStateChanges) {
+    const prev = extras.getGlobalState().allowStateChanges;
+    extras.getGlobalState().allowStateChanges = allowStateChanges;
+    return prev;
+}
+function allowStateChangesEnd(prev) {
+    extras.getGlobalState().allowStateChanges = prev;
+}
+
+function allowStateChanges(allowStateChanges, func, props, state, context) {
+    const prev = allowStateChangesStart(allowStateChanges);
+    let res;
+    try {
+        res = func(props, state, context);
+    } finally {
+        allowStateChangesEnd(prev);
+    }
+    return res;
+}
+
+/**
  * Utilities
  */
 
@@ -139,16 +165,16 @@ const reactiveMixin = {
             reaction.reactComponent = this;
             reactiveRender.$mobx = reaction;
             this.render = reactiveRender;
-            return reactiveRender();
+            return reactiveRender(this.props, this.state, this.context);
         };
 
-        const reactiveRender = () => {
+        const reactiveRender = (props, state, context) => {
             isRenderingPending = false;
             let exception = undefined;
             let rendering = undefined;
             reaction.track(() => {
                 try {
-                    rendering = extras.allowStateChanges(false, baseRender);
+                    rendering = allowStateChanges(false, baseRender, props, state, context);
                 } catch (e) {
                     exception = e;
                 }
@@ -198,10 +224,6 @@ const reactiveMixin = {
  * Observer function / decorator
  */
 export function observer(componentClass) {
-    if (typeof componentClass === 'string') {
-        throw new Error('Store names should be provided as array');
-    }
-
     if (componentClass.isMobxInjector === true) {
         logger.warn(
             'Mobx observer: You are trying to use \'observer\' on a component that already has \'inject\'. Please apply \'observer\' before applying \'inject\''
