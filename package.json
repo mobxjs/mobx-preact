@@ -11,7 +11,8 @@
     "lint": "eslint src test --fix",
     "prepublish": "npm run lint && npm test && npm run build",
     "build": "babel src --out-dir lib",
-    "test": "jest"
+    "test": "jest",
+    "build:sample": "mkdirp sample/dist && babel sample/sample.js -o sample/dist/sample.es5.js && rollup -c sample/rollup.config.js"
   },
   "keywords": [
     "preact",
@@ -44,7 +45,10 @@
     "mobx": "^3.3.2",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
-    "preact-render-to-string": "^3.7.0"
+    "preact-render-to-string": "^3.7.0",
+    "rollup": "^0.52.0",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-node-resolve": "^3.0.0"
   },
   "babel": {
     "presets": [
