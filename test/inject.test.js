@@ -34,7 +34,7 @@ describe('inject based context', () => {
         expect(testRoot.querySelector('div').textContent).toBe('context:bar');
     });
 
-    test('props as args', () => {
+    test('props as render args', () => {
         const C = inject('foo')(
             observer(
                 createClass({
@@ -370,13 +370,13 @@ describe('inject based context', () => {
         await pause(0);
         expect(listRender).toBe(1);
         expect(injectRender).toBe(12); // ideally, 7
-        //expect(itemRender).toBe(7); // TOOD: this is 12 after fixing pass props to render()
+        expect(itemRender).toBe(7);
 
         testRoot.querySelectorAll('.hl_ItemF').forEach(e => e.click());
         await pause(0);
         expect(listRender).toBe(1);
         expect(injectRender).toBe(18); // ideally, 9
-        //expect(itemRender).toBe(9); // TOOD: this is 18 after fixing pass props to render();
+        expect(itemRender).toBe(9);
 
         testRoot.parentNode.removeChild(testRoot);
     });
