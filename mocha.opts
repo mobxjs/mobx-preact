@@ -1,6 +1,0 @@
--r babel-register
---require ./DOM.js
---recursive
---colors
-
-test/*.js
