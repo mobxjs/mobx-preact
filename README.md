@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/mobxjs/mobx-preact.svg?branch=master)](https://travis-ci.org/mobxjs/mobx-preact)
 [![npm](https://img.shields.io/npm/v/mobx-preact.svg)](http://npm.im/mobx-preact)
 
-[Mobx](https://mobxjs.github.io/mobx) bindings specifically for [Preact](https://preactjs.com/).
+[MobX](https://mobxjs.github.io/mobx) bindings specifically for [Preact](https://preactjs.com/).
 
 *This package has recently bumped to version 1.x and is now being supported.*
 
@@ -175,7 +175,7 @@ class MessageList extends Component {
 }
 ```
 
-### connect
+#### connect
 
 In `mobx-react` (v4) you can inject and observe simultaneously with `observe`, but this is now deprecated for [these reasons](https://github.com/mobxjs/mobx-react/blob/master/CHANGELOG.md#using-observer-to-inject-stores-is-deprecated).
 
