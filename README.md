@@ -5,6 +5,8 @@
 
 [Mobx](https://mobxjs.github.io/mobx) bindings specifically for [Preact](https://preactjs.com/).
 
+*This package has recently bumped to version 1.x and is now being supported.*
+
 ## Installation
 
 `npm install mobx-preact --save`
