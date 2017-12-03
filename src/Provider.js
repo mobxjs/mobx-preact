@@ -1,5 +1,4 @@
-import { Component } from 'preact';
-import { childrenOnly } from './utils/utils';
+import { h, Component } from 'preact';
 
 const specialReactKeys = { children: true, key: true, ref: true };
 
@@ -7,7 +6,7 @@ const logger = console; // eslint-disable-line no-console
 
 export class Provider extends Component {
     render({ children }) {
-        return childrenOnly(children);
+        return children.length > 1 ? <div> { children } </div>  : children[0];
     }
 
     getChildContext() {

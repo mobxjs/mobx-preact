@@ -135,7 +135,8 @@ import {observer} from "mobx-preact";
 ### `Provider` and `inject`
 
 `Provider` is a component that can pass stores (or other stuff) using Preact's context mechanism to child components.
-This is useful if you have things that you don't want to pass through multiple layers of components explicitly.
+This is useful if you have things that you don't want to pass through multiple layers of components explicitly. If
+`Provider` has multiple immediate children, they will be wrapped with a `div` element.
 
 `inject` can be used to pick up those stores. It is a higher order component that takes a list of strings and makes those stores available to the wrapped component.
 
@@ -167,9 +168,7 @@ class MessageList extends Component {
       <Message text={message.text} />
     );
     return <Provider color="red">
-        <div>
-            {children}
-        </div>
+      {children}
     </Provider>;
   }
 }

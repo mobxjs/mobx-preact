@@ -13,6 +13,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
+                <CounterStateless />
                 <Inbetween>
                     <CounterComp />
                     <CounterConnect />
@@ -54,7 +55,7 @@ class CounterConnect extends Component {
     }
 }
 
-const CounterStateless = inject('store')(observer(function({ store}) {
+const CounterStateless = inject('store')(observer(function({ store }) {
     return <p>Stateless count is { store.count }</p>;
 }));
 

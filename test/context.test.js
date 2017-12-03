@@ -176,4 +176,23 @@ describe('observer based context', () => {
         expect(msg).toBe(null);
         console.warn = baseWarn;
     });
+
+    test('Provider supports multiple children', () => {
+        const store = {
+            B: 'foo',
+            C: 'bar',
+        };
+
+        const B = inject('store')(({ store }) => <div class="b">{ store.B }</div>);
+        const C = inject('store')(({ store }) => <div class="c">{ store.C }</div>);
+        const A = () => (
+            <Provider store={store}>
+                <B/>
+                <C/>
+            </Provider>
+        );
+        render(<A/>, testRoot);
+        expect(testRoot.querySelector('.b').textContent).toBe('foo');
+        expect(testRoot.querySelector('.c').textContent).toBe('bar');
+    });
 });
