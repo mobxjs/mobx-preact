@@ -279,5 +279,5 @@ Bear in mind that using shallow rendering won't provide any useful results when 
 **Should I use `observer` for each component?**
 
 You should use `observer` on every component that displays observable data.
-Even the small ones. `observer` allows components to render independently from their parent and in general this means that the more you use `observer`, the better the performance become. The overhead of `observer` itself is neglectable.
+Even the small ones. `observer` allows components to render independently from their parent and in general this means that the more you use `observer`, the better the performance become. The overhead of `observer` itself is negligible.
 See also [Do child components need `@observer`?](https://github.com/mobxjs/mobx/issues/101)
