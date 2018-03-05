@@ -101,7 +101,7 @@ describe('observer based context', () => {
         let msg = null;
         const baseWarn = console.warn;
         console.warn = m => (msg = m);
-        const a = observable(3);
+        const a = observable.box(3);
         const C = inject('foo')(observer(
             createClass({
                 render() {
@@ -142,7 +142,7 @@ describe('observer based context', () => {
         let msg = null;
         const baseWarn = console.warn;
         console.warn = m => (msg = m);
-        const a = observable(3);
+        const a = observable.box(3);
         const C = inject('foo')(observer(
             createClass({
                 render() {

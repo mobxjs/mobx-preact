@@ -1,6 +1,6 @@
 {
   "name": "mobx-preact",
-  "version": "1.1.0",
+  "version": "2.0.0-beta.1",
   "description": "Mobx binding specifically for Preact",
   "main": "lib/index.js",
   "repository": {
@@ -24,7 +24,7 @@
   "author": "Phil Mander",
   "license": "MIT",
   "peerDependencies": {
-    "mobx": "3.x",
+    "mobx": "4.x",
     "preact": ">=8"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "eslint-plugin-jest": "^21.3.2",
     "eslint-plugin-react": "^7.5.1",
     "jest": "^21.2.1",
-    "mobx": "^3.3.2",
+    "mobx": "^4.0.0-beta.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "preact-render-to-string": "^3.7.0",

@@ -1,11 +1,7 @@
-import { extras } from 'mobx';
 import { Component } from 'preact';
 
 if (!Component) {
     throw new Error('mobx-preact requires Preact to be available');
-}
-if (!extras) {
-    throw new Error('mobx-preact requires mobx to be available');
 }
 
 export {
