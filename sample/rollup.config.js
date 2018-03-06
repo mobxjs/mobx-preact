@@ -1,4 +1,5 @@
 // rollup.config.js
+import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
@@ -8,11 +9,15 @@ import commonjs from 'rollup-plugin-commonjs';
 export default {
     input: 'sample/dist/sample.es5.js',
     output: {
+        name: 'mobxPreactSample',
         file: 'sample/dist/sample.bundle.js',
-        format: 'iife',
-    },
-    name: 'mobxPreactSample',
+        format: 'iife',    
+    },    
     plugins: [
+        // Example of how to set production mode:
+        // replace({
+        //     'process.env.NODE_ENV': "'production'",
+        // }),
         resolve(),
         commonjs(),
 
