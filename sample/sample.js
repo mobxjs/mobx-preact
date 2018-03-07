@@ -1,6 +1,6 @@
 import { h, Component, render } from 'preact';
 import { observable, action } from 'mobx';
-import { observer, Provider, inject, connect } from '../../lib/index';
+import { observer, Provider, inject, connect } from '../../lib/index.module';
 
 const store = {
     @observable count: 0,
