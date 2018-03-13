@@ -1,6 +1,6 @@
 {
   "name": "mobx-preact",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0",
   "description": "Mobx bindings specifically for Preact",
   "main": "lib/index.js",
   "module": "lib/index.module.js",
@@ -43,7 +43,7 @@
     "eslint-plugin-jest": "^21.3.2",
     "eslint-plugin-react": "^7.5.1",
     "jest": "^22.4.2",
-    "mobx": "^4.0.0-beta.2",
+    "mobx": "^4.0.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "preact-render-to-string": "^3.7.0",
