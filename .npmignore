@@ -1,9 +1,13 @@
 .git
 .editorconfig
 .gitignore
+.travis.yml
 .idea
+sample
+coverage
 src
 test
 .DS_Store
 .eslintrc.js
 *.tgz
+build-rollup.js

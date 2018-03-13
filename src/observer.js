@@ -1,4 +1,4 @@
-import { Atom, Reaction, extras } from 'mobx';
+import { createAtom, Reaction, _getGlobalState } from 'mobx';
 import { Component } from 'preact';
 import { isStateless, makeDisplayName } from './utils/utils';
 
@@ -17,12 +17,12 @@ export function useStaticRendering(useStaticRendering) {
  */
 
 function allowStateChangesStart(allowStateChanges) {
-    const prev = extras.getGlobalState().allowStateChanges;
-    extras.getGlobalState().allowStateChanges = allowStateChanges;
+    const prev = _getGlobalState().allowStateChanges;
+    _getGlobalState().allowStateChanges = allowStateChanges;
     return prev;
 }
 function allowStateChangesEnd(prev) {
-    extras.getGlobalState().allowStateChanges = prev;
+    _getGlobalState().allowStateChanges = prev;
 }
 
 function allowStateChanges(allowStateChanges, func, props, state, context) {
@@ -101,7 +101,7 @@ const reactiveMixin = {
 
         function makePropertyObservableReference(propName) {
             let valueHolder = this[propName];
-            const atom = new Atom('reactive ' + propName);
+            const atom = createAtom('reactive ' + propName);
             Object.defineProperty(this, propName, {
                 configurable: true,
                 enumerable: true,

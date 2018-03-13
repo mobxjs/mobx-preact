@@ -5,7 +5,14 @@
 
 [MobX](https://mobxjs.github.io/mobx) bindings specifically for [Preact](https://preactjs.com/).
 
-*This package has recently bumped to version 1.x and is now being supported.*
+This package provides the bindings for MobX and Preact. It does not require `preact-compat`. The feature set of `mobx-preact` is a slightly slimmed down adaptation of `mobx-react`. The features available are reflected by this document. The features omitted are:
+
+* [Global error handler with onError](https://github.com/mobxjs/mobx-react#global-error-handler-with-onerror)
+* [Stuff to do with PropTypes](https://github.com/mobxjs/mobx-react#proptypes)
+* [Dev Tools](https://github.com/mobxjs/mobx-react#internal-devtools-api)
+* Typescript bindings
+
+If you would like to see any of these features included please create an issue or PR.
 
 ## Installation
 
@@ -15,14 +22,9 @@
 import {observer} from 'mobx-preact';
 ```
 
-This package provides the bindings for MobX and Preact. It does not require `preact-compat`. The feature set of `mobx-preact` is a slightly slimmed down adaptation of `mobx-react`. The features available are reflected by this document. The features omitted are:
+### For use with MobX v3.x
 
-* [Global error handler with onError](https://github.com/mobxjs/mobx-react#global-error-handler-with-onerror)
-* [Stuff to do with PropTypes](https://github.com/mobxjs/mobx-react#proptypes)
-* [Dev Tools](https://github.com/mobxjs/mobx-react#internal-devtools-api)
-* Typescript bindings
-
-If you would like to see any of these features included please create an issue or PR.
+`npm install mobx-preact@1 --save`
 
 ## API documentation
 

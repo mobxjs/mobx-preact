@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 
 import { h, render, Component } from 'preact';
-import { observable, action, computed, transaction, extras, extendObservable } from 'mobx';
+import { observable, action, computed, transaction, _resetGlobalState, extendObservable } from 'mobx';
 import { createClass } from 'preact-compat';
 import renderToString  from 'preact-render-to-string';
 import { observer, useStaticRendering, Observer, inject, connect } from '../src';
@@ -284,7 +284,7 @@ test('issue 12', () => {
 });
 
 test('changing state in render should fail', done => {
-    const data = observable(2);
+    const data = observable.box(2);
     const Comp = observer(() => {
         if (data.get() === 3) {
             try {
@@ -299,7 +299,7 @@ test('changing state in render should fail', done => {
 
     render(<Comp />, testRoot);
     data.set(3); // cause throw
-    extras.resetGlobalState();
+    _resetGlobalState();
 });
 
 test('component should not be inject', () => {
@@ -515,7 +515,7 @@ test('it rerenders correctly if some props are non-observables - 2', async () =>
 });
 
 test('Observer regions should react', () => {
-    const data = observable('hi');
+    const data = observable.box('hi');
     const Comp = () => (
         <div>
             <Observer>{() => <span>{data.get()}</span>}</Observer>
