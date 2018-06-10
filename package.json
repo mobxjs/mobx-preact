@@ -1,6 +1,6 @@
 {
   "name": "mobx-preact",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Mobx bindings specifically for Preact",
   "main": "lib/index.js",
   "module": "lib/index.module.js",
