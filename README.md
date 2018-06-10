@@ -22,7 +22,18 @@ If you would like to see any of these features included please create an issue o
 import {observer} from 'mobx-preact';
 ```
 
-### For use with MobX v3.x
+### Other versions
+
+Please note that major versions of `mobx-preact` are synced with major versions of `mobx`. Consult the following table
+to ensure you install the right version of `mobx-preact` given the `mobx` version you are using:
+
+| `mobx` version  | `mobx-preact` version |
+| --------------- | --------------------- |
+| 5.x             | 3.x (latest)          |
+| 4.x             | 2.x                   |
+| 3.x             | 1.x                   |
+
+E.g. If using `mobx` v3:
 
 `npm install mobx-preact@1 --save`
 

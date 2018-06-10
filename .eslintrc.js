@@ -84,6 +84,9 @@ module.exports = {
         ],
         "react/no-direct-mutation-state" : [
             "warn"
+        ],
+        "react/no-deprecated" : [
+            "off"
         ]
     }
 };
