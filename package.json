@@ -13,7 +13,8 @@
     "prepublish": "npm run lint && npm test && npm run build",
     "build": "node build-rollup",
     "test": "jest",
-    "build:sample": "mkdirp sample/dist && babel sample/sample.js -o sample/dist/sample.es5.js && rollup -c sample/rollup.config.js"
+    "build:sample": "mkdirp sample/dist && babel sample/sample.js -o sample/dist/sample.es5.js && rollup -c sample/rollup.config.js",
+    "release": "standard-version"
   },
   "keywords": [
     "preact",
@@ -53,7 +54,8 @@
     "rollup-plugin-filesize": "^1.5.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^3.0.0"
+    "rollup-plugin-uglify": "^4.0.0",
+    "standard-version": "^4.4.0"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.3.1"
