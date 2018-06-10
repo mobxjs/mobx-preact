@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 
 import { h, render, Component } from 'preact';
-import { observable, action, computed, transaction, _resetGlobalState, extendObservable } from 'mobx';
+import { observable, action, computed, transaction, _resetGlobalState, extendObservable, _getAdministration } from 'mobx';
 import { createClass } from 'preact-compat';
 import renderToString  from 'preact-render-to-string';
 import { observer, useStaticRendering, Observer, inject, connect } from '../src';
@@ -49,7 +49,7 @@ const TodoList = observer(
 
 const App = () => <TodoList />;
 
-const getDNode = (obj, prop) => obj.$mobx.values[prop];
+const getDNode = (obj, prop) => _getAdministration(obj, prop);
 const testRoot = document.body;
 
 afterEach(() => {
@@ -69,16 +69,16 @@ test('nestedRendering', () => {
 
     expect(todoItemRenderings).toBe(1); // item1 should render once
 
-    expect(getDNode(store, 'todos').observers.length).toBe(1);
-    expect(getDNode(store.todos[0], 'title').observers.length).toBe(1);
+    expect(getDNode(store, 'todos').observers.size).toBe(1);
+    expect(getDNode(store.todos[0], 'title').observers.size).toBe(1);
 
     store.todos[0].title += 'a';
 
     expect(todoListRenderings).toBe(1); // should have rendered list once
     expect(todoListWillReactCount).toBe(0); // should not have reacted
     expect(todoItemRenderings).toBe(2); //item1 should have rendered twice
-    expect(getDNode(store, 'todos').observers.length).toBe(1); // observers count shouldn\'t change
-    expect(getDNode(store.todos[0], 'title').observers.length).toBe(1); // title observers should not have increased'
+    expect(getDNode(store, 'todos').observers.size).toBe(1); // observers count shouldn\'t change
+    expect(getDNode(store.todos[0], 'title').observers.size).toBe(1); // title observers should not have increased'
 
     store.todos.push({
         title: 'b',
@@ -94,8 +94,8 @@ test('nestedRendering', () => {
     expect(todoListRenderings).toBe(2); // should have rendered list twice
     expect(todoListWillReactCount).toBe(1);//should have reacted
     expect(todoItemRenderings).toBe(3); // item2 should have rendered as well
-    expect(getDNode(store.todos[1], 'title').observers.length).toBe(1); //title observers should have increased
-    expect(getDNode(store.todos[1], 'completed').observers.length).toBe(0); //completed observers should not have increased'
+    expect(getDNode(store.todos[1], 'title').observers.size).toBe(1); //title observers should have increased
+    expect(getDNode(store.todos[1], 'completed').observers.size).toBe(0); //completed observers should not have increased'
 
     const oldTodo = store.todos.pop();
 
@@ -105,8 +105,8 @@ test('nestedRendering', () => {
     expect(testRoot.querySelectorAll('li').length).toBe(1); // 'list should have only on item in list now
 
     // TODO: this fails :(
-    // expect(getDNode(oldTodo, 'title').observers.length).toBe(0) // title observers should have decreased
-    expect(getDNode(oldTodo, 'completed').observers.length).toBe(0); // completed observers should not have decreased
+    // expect(getDNode(oldTodo, 'title').observers.size).toBe(0) // title observers should have decreased
+    expect(getDNode(oldTodo, 'completed').observers.size).toBe(0); // completed observers should not have decreased
 });
 
 test('keep views alive', () => {
@@ -142,12 +142,12 @@ test('keep views alive', () => {
     expect(testRoot.textContent).toBe('hello6');
     expect(yCalcCount).toBe(1);
 
-    expect(getDNode(data, 'y').observers.length).toBe(1);
+    expect(getDNode(data, 'y').observers.size).toBe(1);
 
     render(<div />, document.body, document.body.lastElementChild);
 
     // TODO: This fails
-    // expect(getDNode(data, 'y').observers.length).toBe(0);
+    // expect(getDNode(data, 'y').observers.size).toBe(0);
 });
 
 test('connect alias works', () => {
@@ -207,7 +207,7 @@ test('does not keep views alive when using static rendering', () => {
     expect(testRoot.querySelector('div').textContent).toBe('hi');
     expect(renderCount).toBe(1);
 
-    expect(getDNode(data, 'z').observers.length).toBe(0);
+    expect(getDNode(data, 'z').observers.size).toBe(0);
 
     useStaticRendering(false);
 });
@@ -232,7 +232,7 @@ test('does not keep views alive when using static + string rendering', () => {
     expect(output).toBe('<div>hi</div>');
     expect(renderCount).toBe(1);
 
-    expect(getDNode(data, 'z').observers.length).toBe(0);
+    expect(getDNode(data, 'z').observers.size).toBe(0);
 
     useStaticRendering(false);
 });
@@ -607,7 +607,7 @@ test('parent / childs render in the right order', () => {
 
     // it seems to make sense that child is rendered twice, but this differs from the mobx-react original test so
     // maybe something is wrong. But the render order is correct.
-    expect(events).toEqual(['parent', 'child', 'child', 'parent']);
+    expect(events).toEqual(['parent', 'child', 'parent']);
 });
 
 /*eslint-disable */
